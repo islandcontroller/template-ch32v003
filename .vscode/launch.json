@@ -1,0 +1,46 @@
+{
+  "configurations": [
+    {
+      "type": "cppdbg",
+      
+      "name": "Debug (WCH-Link)",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/build/template-ch32v003.elf",
+
+      /* OpenOCD debugger */
+      "debugServerPath": "openocd",
+      "debugServerArgs": "-f /opt/openocd/bin/wch-riscv.cfg",
+      "filterStderr": true,
+      "serverStarted": "Info : Listening on port 3333 for gdb connections",
+
+      /* Debugger connection */
+      "MIMode": "gdb",
+      "miDebuggerPath": "/opt/gcc-riscv-none-elf/bin/riscv-none-elf-gdb",
+      "miDebuggerServerAddress": "localhost:3333",
+      "useExtendedRemote": true,
+
+      /* Debugger and target setup */
+      "stopAtEntry": false,
+      "setupCommands": [
+        { "text": "-enable-pretty-printing" },
+        { "text": "set mem inaccessible-by-default off" },
+        { "text": "set architecture riscv:rv32" },
+        { "text": "set remotetimeout unlimited" },
+        { "text": "set disassembler-options xw" }
+      ],
+      "postRemoteConnectCommands": [
+        { "text": "monitor reset halt" },
+        { "text": "monitor [target current] configure -event gdb-detach { shutdown }" },
+        { "text": "load" },
+        { "text": "monitor reset halt" },
+        { "text": "b main" },
+        { "text": "b HardFault_Handler" },
+      ],
+      "launchCompleteCommand": "exec-continue",
+
+      /* Peripheral viewer */
+      "svdPath": "/opt/wch/svd/CH32V003xx.svd"
+    }
+  ]
+}
