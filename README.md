@@ -35,7 +35,7 @@ You can find a fully working example at [islandcontroller/hello-ch32v003](https:
         sudo ./install-rules
 
   * Afterwards, restart the devcontainer.
-* Upon prompt, select the "**\[unspecified\]**" CMake Kit. 
+* Upon prompt, select the "`WCH RISC-V Toolchain x.x`" CMake Kit. 
 * Run "**CMake: Configure**"
 * Build using "**CMake: Build [F7]**"
 
